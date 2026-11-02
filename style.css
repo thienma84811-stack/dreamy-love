@@ -1,0 +1,295 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(180deg, #dcd3f0, #eee0ef, #f5dce4);
+    color: #83718f;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stars{
+    color: #fffaff;
+    font-size: 22px;
+    letter-spacing: 8px;
+    margin-bottom: 30px;
+}
+
+h1{
+    color: #917b9e;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+p{
+    color: #a18da9;
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+button{
+    background: #fffaff;
+    color: #917b9e;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+button:hover{
+    transform: translateY(-6px);
+}
+
+.thank-you{
+    margin-top: 65px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.envelope{ 
+    position: relative; 
+    width: min(280px, 78vw); 
+    height: 190px; 
+    margin: 0 auto 22px; 
+    cursor: pointer; 
+    filter: drop-shadow(0 15px 20px #a88bb955); 
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+                width 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+                height 0.8s cubic-bezier(0.22, 1, 0.36, 1); 
+    perspective: 800px; 
+} 
+ 
+.envelope:hover{ 
+    transform: translateY(-6px); 
+} 
+ 
+.envelope-back{ 
+    position: absolute; 
+    inset: 0; 
+    background: linear-gradient(135deg, #e8cddd, #d3c3e6); 
+    border-radius: 12px; 
+    z-index: 1; 
+} 
+ 
+.letter{ 
+    position: absolute; 
+    width: 86%; 
+    height: 155px; 
+    left: 7%; 
+    bottom: 10px; 
+    box-sizing: border-box; 
+    background: #fffaf7; 
+    border-radius: 8px; 
+    padding: 18px; 
+    color: #81718a; 
+    text-align: left; 
+    z-index: 2; 
+    box-shadow: 0 3px 12px #a88bb922; 
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), 
+                width 0.8s ease, 
+                height 0.8s ease, 
+                left 0.8s ease, 
+                bottom 0.8s ease; 
+} 
+ 
+.letter h2{ 
+    font-family: Georgia, serif; 
+    font-size: 20px; 
+    color: #b28ba9; 
+    margin-bottom: 12px; 
+} 
+ 
+.letter p{ 
+    font-size: 13px; 
+    line-height: 1.7; 
+    color: #81718a; 
+    margin-bottom: 0; 
+} 
+ 
+.envelope-front{ 
+    position: absolute; 
+    inset: 0; 
+    background: linear-gradient(135deg, #e5c5d7, #d4c0e3); 
+    clip-path: polygon(0 42%, 50% 80%, 100% 42%, 100% 100%, 0 100%); 
+    border-radius: 0 0 12px 12px; 
+    z-index: 3; 
+} 
+ 
+.envelope-flap{ 
+    position: absolute; 
+    inset: 0; 
+    background: #d8c4e5; 
+    clip-path: polygon(0 0, 100% 0, 50% 60%); 
+    border-radius: 12px 12px 0 0; 
+    z-index: 4; 
+    transform-origin: top; 
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); 
+    backface-visibility: hidden; 
+} 
+ 
+.envelope-flap::after{ 
+    content: "✦"; 
+    position: absolute; 
+    top: 30%; 
+    left: 50%; 
+    transform: translate(-50%); 
+    width: 27px; 
+    height: 27px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #fff8fc; 
+    background: #c99dbb; 
+    font-size: 13px; 
+} 
+ 
+.envelope.open .envelope-flap{ 
+    transform: rotateX(180deg); 
+} 
+ 
+.envelope.zoom .letter{ 
+    transform: translateY(-100%); 
+    z-index: 6; 
+    visibility: visible; 
+} 
+ 
+.envelope.zoom{ 
+    width: min(460px, 90vw); 
+    height: min(65vw, 520px); 
+} 
+ 
+.envelope:not(.zoom) .letter{ 
+    z-index: 2; 
+} 
+ 
+.envelope:not(.open) .letter{ 
+    visibility: hidden; 
+} 
+ 
+.envelope.open .letter{ 
+    visibility: visible; 
+}
+
+.thank-you > span{
+    color: #a18da9;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.welcome-content{
+    text-align: center;
+}
+
+@media (max-width: 600px){
+    h1{
+        font-size: 34px;
+    }
+
+    .envelope{
+        width: min(280px, 85vw);
+        height: 180px;
+    }
+
+    .envelope.zoom{
+        width: 90vw;
+        height: min(70vh, 480px);
+    }
+
+    .letter{
+        padding: 14px;
+    }
+
+    .letter h2{
+        font-size: 18px;
+    }
+
+    .letter p{
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    button:focus,
+    button:active,
+    .envelope:focus,
+    .envelope:active{
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .envelope,
+    .envelope *{
+        -webkit-tap-highlight-color: transparent;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .letter{
+        user-select: none;
+        -webkit-user-select: none;
+    }
+}
+
+@media(max-width: 600px){
+    body{
+        padding: 24px 16px;
+        min-height: 100svh;
+    }
+
+    h1{
+        font-size: clamp(30px, 8vw, 38px);
+    }
+
+    .thank-you{
+        margin-top: 45px;
+    }
+
+    .envelope{
+        width: min(280px, 85vw);
+        height: 180px;
+    }
+
+    .envelope.zoom{
+        width: 90vw;
+        height: min(65svh, 480px);
+    }
+
+    .letter{
+        padding: 14px;
+    }
+
+    .letter h2{
+        font-size: 18px;
+    }
+
+    .letter p{
+        font-size: 13px;
+        line-height: 1.6;
+    }
+}
+
+#gift{
+    display: block;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+#gift.show{
+    opacity: 0;
+}
+
+.opening{
+    transition: opacity 0.8s ease;
+}
+
+.opening.hide{
+    opacity: 0;
+}

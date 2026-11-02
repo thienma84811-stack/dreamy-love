@@ -1,0 +1,259 @@
+.space-travel{
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    background:
+        radial-gradient(ellipse at 50% 50%,
+            rgba(110, 80, 180, 0.35),
+            transparent 55%),
+        radial-gradient(ellipse at 20% 30%,
+            rgba(90, 110, 190, 0.2),
+            transparent 50%),
+        radial-gradient(ellipse at 80% 70%,
+            rgba(190, 110, 180, 0.18),
+            transparent 50%),
+        linear-gradient(135deg, #100d27, #17132f, #090817);
+}
+
+.space-travel.active{
+    opacity: 1;
+    visibility: visible;
+}
+
+.space-travel::before{
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, white 99%, transparent),
+        radial-gradient(1px 1px at 70% 20%, white 99%, transparent),
+        radial-gradient(2px 2px at 40% 80%, #c4b5fd 99%, transparent),
+        radial-gradient(1px 1px at 85% 65%, white 99%, transparent),
+        radial-gradient(1px 1px at 10% 75%, #a5d8ff 99%, transparent),
+        radial-gradient(2px 2px at 55% 45%, white 99%, transparent);
+    background-size: 220px 220px;
+    opacity: 0.75;
+    animation: backgroundDrift 35s linear infinite;
+}
+
+@keyframes backgroundDrift{
+    from{
+        transform: translate(0, 0);
+    }
+
+    to{
+        transform: translate(-110px, 110px);
+    }
+}
+
+#travelStars{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.travel-star{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow:
+        0 0 6px #ffffff,
+        0 0 12px #c4b5fd;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.space-travel.fast .travel-star{
+    animation: starRush 1.2s ease-in forwards; 
+}
+
+@keyframes starRush{
+    0%{
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0;
+    }
+
+    10%{
+        opacity: 1;
+    }
+
+    65%{
+        opacity: 0.9;
+    }
+
+    100%{
+        transform:
+            translate(
+                calc(-50% + var(--move-x)),
+                calc(-50% + var(--move-y))
+            )
+            scale(22);
+        opacity: 0;
+    }
+}
+
+.space-travel.slow .travel-star{
+    animation-duration: 3.5s;
+    animation-timing-function: ease-out;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .space-travel.fast .travel-star{
+        animation: starRush 2.4s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+    }
+}
+
+.orbit-group {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 1.5s ease;
+}
+
+.orbit-group:not(.arrived) .orbit-star{
+    pointer-events: none;
+}
+
+.orbit-group.arrived {
+    opacity: 1;
+    visibility: visible;
+}
+
+.orbit-group.arrived .orbit-star{
+    pointer-events: auto;
+}
+.travel-message{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+    color: #f4eaff;
+    font-size: cla,p(20px, 4vw, 32px);
+    font-family: Georgia, serif;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+    text-shadow:
+        0 0 10px #c4b5fd,
+        0 0 25px rgba(196, 181, 253, 0.7);
+    z-index: 2;
+    opacity: 0;
+    transition:
+        opacity 1.2s ease,
+        filter 1.2s ease;
+    filter: blur(8px);
+}
+
+.travel-message.show{
+    opacity: 1;
+    filter: blur(0);
+}
+
+.travel-flash{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(220, 210, 255, 0.65) 25%,
+        rgba(160, 140, 255, 0.25) 55%,
+        transparent 75%
+    );
+    transform: scale(0.2);
+}
+
+.space-travel.active .travel-flash{
+    animation: cosmicFlash 5s ease-in-out forwards; 
+}
+
+@keyframes cosmicFlash{
+    0%{
+        opacity: 0;
+        transform: scale(0.2);
+    }
+
+    20%{
+        opacity: 1;
+        transform: scale(1.8);
+    }
+
+    45%{
+        opacity: 0.9;
+        transform: scale(2.8);
+    }
+
+    70%{
+        opacity: 0.35;
+        transform: scale(3.5);
+    }
+
+    100%{
+        opacity: 0;
+        transform: scale(4.5);
+    }
+}
+
+.travel-flash::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: -120%;
+    width: 65%;
+    height: 160%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        rgba(255, 255, 255, 0.95),
+        rgba(220, 210, 255, 0.5),
+        transparent
+    );
+
+    filter: blur(22px);
+    transform: skewX(-20deg);
+}
+
+.space-travel.active .travel-flash::after {
+    animation: lightSweep 2.8s ease-in-out 1.2s forwards;
+}
+
+@keyframes lightSweep {
+    0% {
+        left: -120%;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 0.9;
+    }
+
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
+}
+
+#travelStars{
+    z-index: 2;
+}
+
+.travel-message{
+    z-index: 3;
+}
